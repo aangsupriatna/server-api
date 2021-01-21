@@ -4,7 +4,7 @@ const prisma = new PrismaClient()
 async function get(req, res) {
     const projects = await prisma.project.findMany({
         where: { finished: true },
-        include: { author: true },
+        include: { user: true },
     })
 
     return res.status(200).json(projects)
@@ -36,7 +36,7 @@ async function update(req, res) {
     const { id } = req.params
     const project = await prisma.project.update({
         where: { id: Number(id) },
-        data: { published: true },
+        data: { finished: true },
     })
     return res.status(200).json(project)
 }
