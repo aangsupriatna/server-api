@@ -37,10 +37,14 @@ async function show(req, res) {
 
 async function update(req, res) {
     const { id } = req.params
+    const { name, email, password, role } = req.body
     const user = await prisma.user.update({
         where: { id: Number(id) },
         data: {
-            email
+            name: name,
+            email: email,
+            password: password,
+            role: role
         }
     })
     return res.status(200).json(user)
