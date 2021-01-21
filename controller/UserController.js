@@ -8,11 +8,12 @@ async function get(req, res) {
 }
 
 async function store(req, res) {
-    const { email, name } = req.body
+    const { email, name, password } = req.body
     const result = await prisma.user.create({
         data: {
+            name,
             email,
-            name
+            password
         },
     })
     return res.status(200).json(result)
@@ -20,10 +21,17 @@ async function store(req, res) {
 
 async function show(req, res) {
     const { id } = req.params
-
     const user = prisma.user.findFirst({
-        where: { id: Number(id) }
+        where: {
+            id: Number(id)
+        },
+        include: { project: true },
+        orderBy: {
+            title: "asc",
+        },
+        take: -1,
     })
+    console.log(user)
     return res.status(200).json(user)
 }
 

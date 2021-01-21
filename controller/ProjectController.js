@@ -11,13 +11,13 @@ async function get(req, res) {
 }
 
 async function store(req, res) {
-    const { title, location, authorEmail } = req.body
+    const { title, location, userEmail } = req.body
     const result = await prisma.project.create({
         data: {
             title,
             location,
-            published: false,
-            author: { connect: { email: authorEmail } },
+            finished: false,
+            user: { connect: { email: userEmail } },
         },
     })
     return res.status(200).json(result)
