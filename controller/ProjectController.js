@@ -4,20 +4,20 @@ const prisma = new PrismaClient()
 async function get(req, res) {
     const projects = await prisma.project.findMany({
         where: { finished: true },
-        include: { user: true },
+        include: { company: true },
     })
 
     return res.status(200).json(projects)
 }
 
 async function store(req, res) {
-    const { title, location, userEmail } = req.body
+    const { title, location, companyId } = req.body
     const result = await prisma.project.create({
         data: {
             title,
             location,
             finished: false,
-            user: { connect: { email: userEmail } },
+            company: { connect: { id: Number(companyId) } },
         },
     })
     return res.status(200).json(result)
@@ -28,7 +28,7 @@ async function show(req, res) {
 
     const project = await prisma.project.findUnique({
         where: { id: Number(id) },
-        include: { user: true },
+        include: { company: true },
     })
     return res.status(200).json(project)
 }

@@ -24,7 +24,6 @@ async function show(req, res) {
     const user = await prisma.user.findUnique({
         where: { id: Number(id) }
     })
-    console.log(user)
     return res.status(200).json(user)
 }
 
