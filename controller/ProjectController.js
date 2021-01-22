@@ -26,7 +26,7 @@ async function store(req, res) {
 async function show(req, res) {
     const { id } = req.params
 
-    const project = prisma.project.findFirst({
+    const project = await prisma.project.findUnique({
         where: { id: Number(id) }
     })
     return res.status(200).json(project)
