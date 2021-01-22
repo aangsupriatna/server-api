@@ -27,7 +27,8 @@ async function show(req, res) {
     const { id } = req.params
 
     const project = await prisma.project.findUnique({
-        where: { id: Number(id) }
+        where: { id: Number(id) },
+        include: { user: true },
     })
     return res.status(200).json(project)
 }
