@@ -17,7 +17,7 @@ model User {
   password  String
   role      UserRole @default(USER)
   company   Company?
-  profiles  Profile?
+  profile   Profile?
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
@@ -31,6 +31,8 @@ model Profile {
   userId    Int
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map(name: "profiles")
 }
 
 model Company {
@@ -42,6 +44,8 @@ model Company {
   projects  Project[]
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
+
+  @@map(name: "companies")
 }
 
 model Project {
